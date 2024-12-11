@@ -17,6 +17,11 @@ const Login = () => {
                     <input  className="border border-stone-300 rounded w-full p-2 mt-1" type="password" name="" id=""  required/>
                 </div>
                 <button className="bg-primary text-white w-full py-2 rounded">Login</button>
+
+                {
+                    state === 'Admin'? <p>Doctor Login ? <span className="text-primary underline cursor-pointer" onClick={()=> setState('Doctor')}>Click here </span></p> 
+                    :  <p>Admin Login ? <span className="text-primary underline cursor-pointer"  onClick={()=> setState('Admin')}>Click here </span></p> 
+                }
             </div>
             
         </form>
