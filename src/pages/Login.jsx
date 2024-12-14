@@ -19,13 +19,14 @@ const Login = () => {
         response = await axios.post(backendUrl + "/api/admin/login", {
           email,
           password,
-        });
-      } else {
-        response = await axios.post(backendUrl + "/api/doctor/login", {
-          email,
-          password,
-        });
-      }
+        }); }
+        
+    //   else {
+    //     response = await axios.post(backendUrl + "/api/doctor/login", {
+    //       email,
+    //       password,
+    //     });
+    //   }
   
       const { data } = response;
   
