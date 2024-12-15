@@ -29,8 +29,8 @@ const AddDoctor = () => {
         "https://api.imgbb.com/1/upload?key=8802a8cd178d628a544af3c62782302a",
         formData
       );
-      setDocImg(res.data.data.url); // Save the uploaded image URL
-      console.log("Image URL:", res.data.data.url); // Optional: Log the uploaded image URL
+      setDocImg(res.data.data.url); 
+      console.log("Image URL:", res.data.data.url);  
       toast.success("Image uploaded successfully!");
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -69,6 +69,17 @@ const AddDoctor = () => {
 
       if (data.success) {
         toast.success(data.message || "Doctor added successfully!");
+        setDocImg('')
+        setName('')
+        setPassword('')
+        setEmail('')
+        setAddress1('')
+        setAddress2('')
+        setAbout('')
+        // setSpeciality('')
+        setDegree('')
+        
+        setFees('')
       } else {
         toast.error(data.message || "Failed to add doctor.");
       }
