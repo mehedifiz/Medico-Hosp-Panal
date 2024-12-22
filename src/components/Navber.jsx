@@ -4,7 +4,7 @@ import { assets } from "../assets/assets";
 import { AdminContext } from "../context/AdminContext";
 
 const Navber = () => {
-  const { aToken, setAToken } = useContext(AdminContext);
+  const { aToken, setAToken , userData} = useContext(AdminContext);
   const navigate = useNavigate(); // Initialize navigate using useNavigate hook
 
   const Logout = () => {

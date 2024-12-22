@@ -5,7 +5,7 @@ import { AdminContext } from "../../context/AdminContext";
 import { toast } from "react-toastify";
 
 const AddDoctor = () => {
-  const [docImg, setDocImg] = useState("");
+  const [docImg, setDocImg] = useState("fsf");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -58,9 +58,9 @@ const AddDoctor = () => {
     };
 
     try {
-      if (!docImg) {
-        return toast.error("Please upload an image.");
-      }
+      // if (!docImg) {
+      //   return toast.error("Please upload an image.");
+      // }
 
       const { data } = await axios.post(
         `${backendUrl}/api/admin/add-doctor`,
