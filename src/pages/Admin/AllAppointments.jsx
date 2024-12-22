@@ -7,7 +7,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const AllAppointments = () => {
-  const { getAllAppointments, appointments, aToken, backendUrl } =
+  const { getAllAppointments, appointments, aToken, backendUrl , cencelAppoinment } =
     useContext(AdminContext);
   const { CalculateAge, slotDateFormat, currency } = useContext(Appcontext);
 
@@ -21,24 +21,7 @@ const AllAppointments = () => {
     return <Loading />;
   }
 
-  const cencelAppoinment = async (appointmentId) => {
-    // console.log({backendUrl , appointmentId })
-
-    try {
-      const { data } = await axios.post(
-        backendUrl + "/api/admin/cencel-appoinment",
-        { appointmentId },
-        { headers: { aToken } }
-      );
-
-      if (data.success) {
-        toast.success(data.message);
-        getAllAppointments();
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
+ 
 
   return (
     <div className="w-full max-w-6xl mt-6 mx-auto">
@@ -80,8 +63,8 @@ const AllAppointments = () => {
               />
               <p>{item?.docData?.name}</p>
             </div>
-            <p>
-              {" "}
+            <p className="mt-7">
+              
               {currency}
               {item.amount}
             </p>

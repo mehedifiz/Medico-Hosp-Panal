@@ -9,6 +9,8 @@ const AdminContextProvider = (props) => {
   const [aToken, setAToken] = useState(localStorage.getItem("aToken") || ""); // Token from localStorage
   const [doctors, setDoctors] = useState([]); // State to store doctors' data
 
+  const [dashData , setDashData] = useState(false)  
+
   const [appointments , setAppointments] = useState([])
 
   // Function to fetch all doctors
@@ -25,9 +27,43 @@ const AdminContextProvider = (props) => {
         toast.error(data.message); // Show error toast
       }
     } catch (err) {
-      toast.error(err.message); // Show error toast for unexpected issues
+      toast.error(err.message);  
     }
   };
+  const cencelAppoinment = async (appointmentId) => {
+    // console.log({backendUrl , appointmentId })
+
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/api/admin/cencel-appoinment",
+        { appointmentId },
+       { headers: { aToken } } 
+      );
+
+      if (data.success) {
+        toast.success(data.message);
+        getAllAppointments();
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const getDashboardData = async()=>{
+    try {
+      const {data} = await axios.get(backendUrl + '/api/admin/dashboard', { headers: { aToken } } )
+      if(data.success){
+        console.log('Dashboard Data', data.dashData)
+        setDashData(data.dashData)
+      } else {
+        toast.error(data.message)
+      }
+
+    } catch (error) {
+      toast.error(error.message);  
+      
+    }
+  }
 
   const Changeavailablity = async(docId)=>{
     try {
@@ -84,6 +120,9 @@ const AdminContextProvider = (props) => {
     getAllAppointments,
     appointments,
     setAppointments,
+    dashData,
+    getDashboardData,
+    cencelAppoinment
   };
 
   return (
