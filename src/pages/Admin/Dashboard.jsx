@@ -2,17 +2,27 @@ import { useContext, useEffect } from "react";
 import { AdminContext } from "../../context/AdminContext";
 import { assets } from "../../assets/assets";
 import { Appcontext } from "../../context/AppContext";
+import Loading from "../../components/Loading";
 
 const Dashboard = () => {
-  const { backendUrl, dashData, aToken, getDashboardData, cencelAppoinment } =
+  const { backendUrl, dashData, aToken, getDashboardData,getAllAppointments, cencelAppoinment } =
     useContext(AdminContext);
     const{slotDateFormat}   = useContext(Appcontext)
+
+    const cencelApp = async (id) => {
+      cencelAppoinment(id);
+      getAllAppointments();
+      
+    }
 
   useEffect(() => {
     if (aToken) {
       getDashboardData();
     }
   }, [aToken]);
+  if(!dashData){
+    return <Loading/>
+  }
 
   return (
     dashData && (
@@ -66,7 +76,7 @@ const Dashboard = () => {
                   <p className="text-red-400 text-sm font-medium">Cancelled</p>
                 ) : (
                   <img
-                    onClick={() => cencelAppoinment(item._id)}
+                    onClick={() => cencelApp(item._id)}
                     src={assets.cancel_icon}
                     alt=""
                     className="w-14 cursor-pointer"

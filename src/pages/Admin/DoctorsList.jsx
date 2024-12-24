@@ -1,17 +1,24 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AdminContext } from "../../context/AdminContext";
+import Loading from "../../components/Loading";
 
 const DoctorsList = () => {
 
     const {doctors , getAllDoctors , Changeavailablity,aToken} =useContext(AdminContext)
-
+    
     useEffect( ()=>{
-        if(aToken ){
+        
+       
             getAllDoctors()
             // console.log()
-        }
+         
 
     },[aToken])
+
+    if(!doctors){
+        return <Loading/>}
+
+    
 
 
     return (

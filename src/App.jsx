@@ -10,11 +10,14 @@ import Dashboard from "./pages/Admin/Dashboard";
 import AllAppointments from "./pages/Admin/AllAppointments";
 import AddDoctor from "./pages/Admin/AddDoctor";
 import DoctorsList from "./pages/Admin/DoctorsList";
+import Root from "./pages/Root";
+import { DoctorContext } from "./context/DoctorsContext";
  
 
 const App = () => {
   const { aToken } = useContext(AdminContext);
-  return aToken ? (
+  const { DToken } = useContext(DoctorContext);
+  return  DToken ? (
     <div className="bg-[#F8F9FD]">
       <ToastContainer />
       <Navber />
@@ -23,7 +26,7 @@ const App = () => {
         <Sideber />
 
         <Routes>
-          <Route path="/" element={<></>}></Route>
+          <Route path="/" element={<Root/>}></Route>
           <Route path="/admin-dashboard" element={<Dashboard />}></Route>
           <Route path="/all-appointments" element={<AllAppointments />}></Route>
           <Route path="/add-doctor" element={<AddDoctor />}></Route>

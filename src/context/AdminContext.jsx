@@ -6,7 +6,7 @@ export const AdminContext = createContext();
 
 const AdminContextProvider = (props) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL; // Backend URL from .env file
-  const [aToken, setAToken] = useState(localStorage.getItem("aToken") || ""); // Token from localStorage
+  const [aToken, setAToken] = useState(localStorage.getItem("aToken") ? localStorage.getItem("aToken") : ""); // Token from localStorage
   const [doctors, setDoctors] = useState([]); // State to store doctors' data
 
   const [dashData , setDashData] = useState(false)  
@@ -41,8 +41,8 @@ const AdminContextProvider = (props) => {
       );
 
       if (data.success) {
-        toast.success(data.message);
         getAllAppointments();
+        toast.success(data.message);
       }
     } catch (error) {
       toast.error(error.message);

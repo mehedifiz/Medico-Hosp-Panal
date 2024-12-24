@@ -2,47 +2,55 @@ import { useContext, useState } from "react";
 import { AdminContext } from "../context/AdminContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { DoctorContext } from "../context/DoctorsContext";
 
 const Login = () => {
   const [state, setState] = useState("Admin");
   const { setAToken, backendUrl } = useContext(AdminContext);
+
+  const { setDToken } = useContext(DoctorContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-  
+
     try {
-      let response;
       if (state === "Admin") {
-        response = await axios.post(backendUrl + "/api/admin/login", {
+        console.log("Admin login");
+        const { data } = await axios.post(backendUrl + "/api/admin/login", {
           email,
           password,
-        }); }
-        
-    //   else {
-    //     response = await axios.post(backendUrl + "/api/doctor/login", {
-    //       email,
-    //       password,
-    //     });
-    //   }
-  
-      const { data } = response;
-  
-      if (data.success) {
-        localStorage.setItem("aToken", data.token);
-        setAToken(data.token);
-        toast.success("Login successful!");
+        });
+        if (data.success) {
+          localStorage.setItem("aToken", data.token);
+          setAToken(data.token);
+          toast.success("Login successful!");
+        } else {
+          toast.error(data.message);
+        }
       } else {
-        toast.error(data.message);
+        const { data } = await axios.post(backendUrl + "/api/doctor/login", {
+          email,
+          password,
+        });
+        if (data.success) {
+          localStorage.setItem("DToken", data.token);
+          setDToken(data.token);
+          console.log(data.token);
+          toast.success("Login successful!");
+        } else {
+          toast.error(data.message);
+        }
       }
+ 
     } catch (err) {
       console.log(err);
       toast.error("An error occurred. Please try again.");
     }
   };
-  
+
   return (
     <form onSubmit={onSubmitHandler} className="min-h-[80vh] flex items-center">
       <div className="flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] border rounded-xl text-stone-700 text-sm shadow-lg">
@@ -79,22 +87,22 @@ const Login = () => {
 
         {state === "Admin" ? (
           <p>
-            Doctor Login ?{" "}
+            Doctor Login ? 
             <span
               className="text-primary underline cursor-pointer"
               onClick={() => setState("Doctor")}
             >
-              Click here{" "}
+              Click here 
             </span>
           </p>
         ) : (
           <p>
-            Admin Login ?{" "}
+            Admin Login ? 
             <span
               className="text-primary underline cursor-pointer"
               onClick={() => setState("Admin")}
             >
-              Click here{" "}
+              Click here 
             </span>
           </p>
         )}
