@@ -2,16 +2,25 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { assets } from "../assets/assets";
 import { AdminContext } from "../context/AdminContext";
+import { DoctorContext } from "../context/DoctorsContext";
 
 const Navber = () => {
   const { aToken, setAToken , userData} = useContext(AdminContext);
+  const {   setDToken  } = useContext(DoctorContext);
   const navigate = useNavigate(); // Initialize navigate using useNavigate hook
 
   const Logout = () => {
     navigate("/"); // Navigate to the home route
     if (aToken) {
       setAToken(""); // Clear token in context
+      setDToken(""); // Clear token in context
       localStorage.removeItem("aToken"); // Remove token from local storage
+      localStorage.removeItem("DToken"); // Remove token from local storage
+    } else{
+      {
+        setDToken(""); // Clear token in context
+        localStorage.removeItem("DToken"); // Remove token from local storage
+      }
     }
   };
 
