@@ -47,7 +47,7 @@ const DoctorAppointments = () => {
                 <img
                   className="w-8 rounded-full inline border border-primary "
                   src={item.userData?.image}
-                />{" "}
+                /> 
                 <p>{item.userData?.name || "N/A"}</p>
               </div>
               <div>
@@ -68,9 +68,9 @@ const DoctorAppointments = () => {
                 {currency} {item.amount}
               </p>
               {item.cancelled ? (
-                <p className="text-orange-600 border rounded">Cancelled</p>
+                <p className="text-orange-600 border rounded p-2">Cancelled</p>
               ) : item.isCompleted ? (
-                <p className="text-primary border rounded ">Completed</p>
+                <p className="text-primary border rounded   p-2">Completed</p>
               ) : (
                 <div className="flex">
                   <img
