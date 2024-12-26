@@ -14,7 +14,7 @@ const DoctorContextProvider = (props) => {
   const [loading, setLoading] = useState(false); // Add loading state
   const [dashdata , setDashData] =useState(false)
   const [profileData , setProfileData] =useState(false)
-  console.log(dashdata)
+  console.log(profileData)
 
 
   const getAppointments = async () => {
@@ -113,6 +113,33 @@ const DoctorContextProvider = (props) => {
     
   }
 
+  const updateProfile = async()=>{
+
+    try {
+    const updateData = {
+      address:profileData.address,
+      fees:profileData.fees,
+      available:profileData.available
+    }
+    // console.log(updateData)
+
+    const {data} = await axios.post(backendUrl +'/api/doctor/update-profile' , updateData , {headers:{DToken}})
+
+    if(data.success){
+      toast.success(data.message)
+      getProfileData()
+
+    }else{
+      toast.error(data.message)
+
+    }
+      
+    } catch (error) {
+      
+    }
+
+  }
+
   const value = {
     DToken,
     setDToken,
@@ -126,7 +153,8 @@ const DoctorContextProvider = (props) => {
     dashdata,setDashData,
     profileData,
     setProfileData,
-    getProfileData
+    getProfileData,
+    updateProfile
     
   };
 
